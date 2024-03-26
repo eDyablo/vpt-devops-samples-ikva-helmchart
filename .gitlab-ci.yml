@@ -23,7 +23,7 @@ deploy environment:
   - job: publish chart
   stage: deploy
   trigger:
-    project: devops/asm-infra
+    project: devops/samples/ikva/ikva-infra
     strategy: depend
   variables:
     IKVA_CHART_VERSION: $HELM_CHART_PACKAGE_VERSION
