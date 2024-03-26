@@ -19,6 +19,7 @@ deploy environment:
       $CI_PIPELINE_SOURCE == 'pipeline'
       && $HELMFILE_ENVIRONMENT
       && $UPSTREAM_ENVIRONMENT_NAME
+      && $UPSTREAM_ENVIRONMENT_TIER
   needs:
   - job: publish chart
   stage: deploy
