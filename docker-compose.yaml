@@ -1,0 +1,13 @@
+version: '3.0'
+services:
+  terminal:
+    image: dkr.gtl.net/dkr/devops-tools-helm-job-runner
+    volumes:
+    - .:/var/workspace:rw
+    - ~/.aws:/home/default/.aws:ro
+    - ~/.kube:/home/default/.kube:ro
+    environment:
+      AWS_PROFILE: $AWS_PROFILE
+      PS1: '$${SESSION_NAME:-$${USER:-$$(uname -n)}} \w $$ '
+      SESSION_NAME: helmchart
+    working_dir: /var/workspace

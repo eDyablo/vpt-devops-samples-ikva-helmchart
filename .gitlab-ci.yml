@@ -1,0 +1,33 @@
+include:
+- project: devops/tools/ci
+  file: helm-jobs.yaml
+
+lint chart:
+  extends: .lint chart job
+  rules:
+  - if: $CI_PIPELINE_SOURCE != 'pipeline'
+
+package chart:
+  extends: .package chart job
+
+publish chart:
+  extends: .push chart to artifactory job
+
+deploy environment:
+  rules:
+  - if: >
+      $CI_PIPELINE_SOURCE == 'pipeline'
+      && $HELMFILE_ENVIRONMENT
+      && $UPSTREAM_ENVIRONMENT_NAME
+  needs:
+  - job: publish chart
+  stage: deploy
+  trigger:
+    project: devops/asm-infra
+    strategy: depend
+  variables:
+    IKVA_CHART_VERSION: $HELM_CHART_PACKAGE_VERSION
+    DEPLOYMENT_NAME_SUFFIX: $DEPLOYMENT_NAME_SUFFIX
+    HELMFILE_ENVIRONMENT: $HELMFILE_ENVIRONMENT
+    UPSTREAM_ENVIRONMENT_AUTOSTOP: $UPSTREAM_ENVIRONMENT_AUTOSTOP
+    UPSTREAM_ENVIRONMENT_NAME: $UPSTREAM_ENVIRONMENT_NAME

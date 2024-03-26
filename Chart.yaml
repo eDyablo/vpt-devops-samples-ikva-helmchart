@@ -1,0 +1,18 @@
+annotations:
+  vendor: ViaPath
+apiVersion: v2
+appVersion: latest
+description: A Helm chart for Kubernetes
+maintainers:
+- name: Ed Yablonsky
+  email: eduard.yablonskyy@viapath.com
+name: ikva-service
+sources:
+- https://gitlab.gtl.net/devops/samples/ikva/ikva-helmchart
+type: application
+version: 0.0.0
+
+dependencies:
+- name: viapathlib
+  repository: https://artifactory.gtl.net/artifactory/helm
+  version: 0.1.0
