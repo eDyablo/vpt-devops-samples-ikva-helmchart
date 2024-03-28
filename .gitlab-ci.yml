@@ -1,6 +1,6 @@
 include:
-- project: devops/tools/ci
-  file: helm-jobs.yaml
+- file: service-helmchart-pipeline.gitlab-ci.yml
+  project: devops/tools/ci  
 
 lint chart:
   extends: .lint chart job
@@ -14,20 +14,12 @@ publish chart:
   extends: .push chart to artifactory job
 
 deploy environment:
+  extends: .trigger helmfile infra project job
   rules:
-  - if: >
-      $CI_PIPELINE_SOURCE == 'pipeline'
-      && $HELMFILE_ENVIRONMENT
-      && $UPSTREAM_ENVIRONMENT_NAME
+  - if: $CI_PIPELINE_SOURCE != 'pipeline'
+    when: never
+  - !reference [.trigger helmfile infra project job, rules]
   needs:
   - job: publish chart
-  stage: deploy
-  trigger:
-    project: $INFRA_PROJECT_PATH
-    strategy: depend
   variables:
     IKVA_CHART_VERSION: $HELM_CHART_PACKAGE_VERSION
-    DEPLOYMENT_NAME_SUFFIX: $DEPLOYMENT_NAME_SUFFIX
-    HELMFILE_ENVIRONMENT: $HELMFILE_ENVIRONMENT
-    UPSTREAM_ENVIRONMENT_AUTOSTOP: $UPSTREAM_ENVIRONMENT_AUTOSTOP
-    UPSTREAM_ENVIRONMENT_NAME: $UPSTREAM_ENVIRONMENT_NAME
