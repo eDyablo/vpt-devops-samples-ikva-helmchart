@@ -1,6 +1,6 @@
 include:
 - file: helmfile-infra/helmchart-pipeline.gitlab-ci.yml
-  project: devops/tools/ci  
+  project: devops/tools/ci
 
 lint chart:
   extends: .lint chart job
