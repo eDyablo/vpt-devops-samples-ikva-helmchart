@@ -22,4 +22,5 @@ deploy environment:
   needs:
   - job: publish chart
   variables:
-    IKVA_CHART_VERSION: $HELM_CHART_PACKAGE_VERSION
+    HELMFILE_ENVS: |-
+      IKVA_CHART_VERSION=$HELM_CHART_PACKAGE_VERSION
