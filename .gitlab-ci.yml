@@ -1,5 +1,5 @@
 include:
-- file: service-helmchart-pipeline.gitlab-ci.yml
+- file: helmfile-infra/helmchart-pipeline.gitlab-ci.yml
   project: devops/tools/ci  
 
 lint chart:
