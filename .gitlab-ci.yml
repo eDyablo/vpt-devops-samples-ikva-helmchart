@@ -3,7 +3,12 @@ include:
   project: devops/tools/ci
 
 variables:
-  PIPELINE_CUSTOM_JOBS: package chart
+  PIPELINE_CUSTOM_JOBS: |-
+    lint chart
+    package chart
+
+LINT:
+  extends: .lint chart job
 
 PACK:
   extends: .package chart job
