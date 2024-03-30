@@ -2,6 +2,12 @@ include:
 - file: helmfile-infra/helmchart-pipeline.gitlab-ci.yml
   project: devops/tools/ci
 
+variables:
+  PIPELINE_CUSTOM_JOBS: package chart
+
+PACK:
+  extends: .package chart job
+
 deploy environment:
   extends: .trigger helmfile infra project job
   rules:
