@@ -3,7 +3,7 @@ include:
   project: devops/tools/ci
 
 variables:
-  PIPELINE_CUSTOM_JOBS: |-
+  HELMCHART_PIPELINE_CUSTOM_JOBS: |-
     lint chart
     package chart
     publish chart
