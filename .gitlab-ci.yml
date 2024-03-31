@@ -2,6 +2,7 @@ include:
 - file: helmfile-infra/helmchart-pipeline.gitlab-ci.yml
   project: devops/tools/ci
 
-variables:
-  HELMFILE_ENVS: |-
-    IKVA_CHART_VERSION=$HELM_CHART_PACKAGE_VERSION
+deploy environment:
+  variables:
+    HELMFILE_ENVS: |-
+      IKVA_CHART_VERSION=$HELM_CHART_PACKAGE_VERSION
